@@ -1,5 +1,4 @@
-export const TESLA_URL: string =
-  "https://www.tesla.com/tr_TR/inventory/new/my?arrangeby=plh&zip=38110&range=0";
+export const TESLA_URL: string = process.env.TESLA_URL || "";
 export const CALLMEBOT_API_KEY: string = process.env.CALLMEBOT_API_KEY || "";
 export const WHATSAPP_NUMBER: string = process.env.WHATSAPP_NUMBER || "";
 

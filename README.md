@@ -14,7 +14,7 @@ Junibot is an automated monitoring tool that checks Tesla's inventory for availa
 ## Prerequisites
 
 - [Bun](https://bun.sh) runtime (v1.2.9 or later)
-- Microsoft Edge browser installed (for Puppeteer)
+- Node.js (for node-notifier)
 - WhatsApp account for notifications
 - CallMeBot API key (for WhatsApp integration)
 
@@ -33,9 +33,23 @@ cd junibot
 bun install
 ```
 
+## Project Structure
+
+```
+junibot/
+├── src/
+│   ├── index.ts          # Main application entry point
+│   ├── browser.ts        # Browser setup and configuration
+│   ├── notifications.ts  # Notification handling
+│   └── scraper.ts        # Tesla inventory scraping logic
+├── package.json          # Project dependencies and scripts
+├── tsconfig.json         # TypeScript configuration
+└── README.md            # Project documentation
+```
+
 ## Configuration
 
-Before running the bot, you need to configure the following environment variables in the `index.ts` file:
+Before running the bot, you need to configure the following environment variables:
 
 - `TESLA_URL`: The Tesla inventory URL to monitor
 - `CALLMEBOT_API_KEY`: Your CallMeBot API key
@@ -46,12 +60,12 @@ Before running the bot, you need to configure the following environment variable
 To start the bot:
 
 ```bash
-bun run index.ts
+bun run start
 ```
 
 The bot will:
 
-1. Launch a browser in non-headless mode
+1. Launch a browser in stealth mode
 2. Navigate to the Tesla inventory page
 3. Check for available vehicles
 4. Send notifications if vehicles are found
@@ -65,6 +79,7 @@ The bot uses:
 - Node-notifier for desktop notifications
 - CallMeBot API for WhatsApp integration
 - Axios for HTTP requests
+- TypeScript for type safety
 
 ## Security Features
 
@@ -78,10 +93,11 @@ The bot uses:
 
 If you encounter any issues:
 
-1. Ensure Microsoft Edge is installed
+1. Ensure all dependencies are properly installed
 2. Verify your CallMeBot API key is correct
 3. Check your internet connection
 4. Make sure your WhatsApp number is in the correct format
+5. Check the console for error messages
 
 ## License
 
