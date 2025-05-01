@@ -27,7 +27,7 @@ export async function createBrowser(): Promise<Browser> {
   return await puppeteer.launch({
     headless: true,
     executablePath:
-      "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+      process.env.PUPPETEER_EXECUTABLE_PATH || "/usr/bin/chromium",
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
