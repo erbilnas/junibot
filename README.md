@@ -10,6 +10,7 @@ Junibot is an automated monitoring tool that checks Tesla's inventory for availa
 - 🤖 Stealth mode to avoid detection
 - 🔄 Automatic periodic checks (every 15 seconds)
 - 📊 Detailed vehicle information including model, name, price, and options
+- 🐳 Docker support for easy deployment
 
 ## Prerequisites
 
@@ -17,6 +18,7 @@ Junibot is an automated monitoring tool that checks Tesla's inventory for availa
 - Node.js (for node-notifier)
 - WhatsApp account for notifications
 - CallMeBot API key (for WhatsApp integration)
+- Docker (optional, for containerized deployment)
 
 ## Installation
 
@@ -41,7 +43,11 @@ junibot/
 │   ├── index.ts          # Main application entry point
 │   ├── browser.ts        # Browser setup and configuration
 │   ├── notifications.ts  # Notification handling
-│   └── scraper.ts        # Tesla inventory scraping logic
+│   ├── scraper.ts        # Tesla inventory scraping logic
+│   ├── utils.ts          # Utility functions
+│   └── config.ts         # Configuration management
+├── Dockerfile            # Docker configuration
+├── .dockerignore         # Docker ignore file
 ├── package.json          # Project dependencies and scripts
 ├── tsconfig.json         # TypeScript configuration
 └── README.md            # Project documentation
@@ -57,10 +63,29 @@ Before running the bot, you need to configure the following environment variable
 
 ## Usage
 
+### Running with Bun
+
 To start the bot:
 
 ```bash
 bun run start
+```
+
+### Running with Docker
+
+1. Build the Docker image:
+
+```bash
+docker build -t junibot .
+```
+
+2. Run the container:
+
+```bash
+docker run -e TESLA_URL="your_url" \
+           -e CALLMEBOT_API_KEY="your_key" \
+           -e WHATSAPP_NUMBER="your_number" \
+           junibot
 ```
 
 The bot will:
@@ -80,6 +105,8 @@ The bot uses:
 - CallMeBot API for WhatsApp integration
 - Axios for HTTP requests
 - TypeScript for type safety
+- Bun as the JavaScript runtime
+- Docker for containerization
 
 ## Security Features
 
@@ -98,6 +125,7 @@ If you encounter any issues:
 3. Check your internet connection
 4. Make sure your WhatsApp number is in the correct format
 5. Check the console for error messages
+6. For Docker issues, ensure the container has proper network access
 
 ## License
 
