@@ -1,28 +1,33 @@
 import { Page } from "puppeteer";
 import { humanScroll, simulatePageInteractions } from "./browser";
 import { TESLA_URL, TeslaCar } from "./config";
+import { logger } from "./logger";
 import { getRandomDelay } from "./utils";
 
 export async function scrapeTeslaInventory(page: Page): Promise<TeslaCar[]> {
-  console.log("Navigating to Tesla inventory page...");
+  logger.info("Navigating to Tesla inventory page...");
   await page.goto(TESLA_URL, {
     waitUntil: "networkidle0",
     timeout: 30000,
   });
 
   // Add random delay after page load
-  await new Promise((resolve) => setTimeout(resolve, getRandomDelay()));
+  const delay = getRandomDelay();
+  logger.debug(`Adding random delay of ${delay}ms...`);
+  await new Promise((resolve) => setTimeout(resolve, delay));
 
   // Simulate human-like behavior
-  console.log("Simulating human-like behavior...");
+  logger.info("Simulating human-like behavior...");
   await humanScroll(page);
   await simulatePageInteractions(page);
   await humanScroll(page);
 
   // Wait for the page to load and check for any inventory items
+  logger.debug("Waiting for page content to load...");
   await page.waitForSelector("body", { timeout: 10000 });
 
   // Check if there are any available cars using multiple possible selectors
+  logger.debug("Scraping car data from page...");
   return await page.evaluate(() => {
     const selectors: string[] = [
       ".inventory-item",
