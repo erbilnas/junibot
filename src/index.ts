@@ -37,11 +37,11 @@ async function checkTeslaInventory(): Promise<void> {
       error instanceof Error ? error.message : "Unknown error"
     );
     // Send error notification
-    await sendWhatsAppMessage(
-      `⚠️ Error checking Tesla inventory: ${
-        error instanceof Error ? error.message : "Unknown error"
-      }`
-    );
+    // await sendWhatsAppMessage(
+    //   `⚠️ Error checking Tesla inventory: ${
+    //     error instanceof Error ? error.message : "Unknown error"
+    //   }`
+    // );
   } finally {
     await browser.close();
   }
